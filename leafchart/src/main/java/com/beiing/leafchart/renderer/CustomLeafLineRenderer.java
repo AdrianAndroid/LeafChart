@@ -8,10 +8,8 @@ import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Shader;
-import android.util.Log;
 import android.view.View;
 
-import com.beiing.leafchart.BuildConfig;
 import com.beiing.leafchart.bean.Axis;
 import com.beiing.leafchart.bean.Line;
 import com.beiing.leafchart.bean.PointValue;
@@ -44,10 +42,10 @@ public class CustomLeafLineRenderer extends LeafLineRenderer {
     public void drawFillArea(Canvas canvas, Line line, Axis axisX) {
         //继续使用前面的 path
         if (line != null && line.getValues().size() > 1 && isShow) {
-            solidLinePaint.setStrokeWidth(LeafUtil.dp2px(mContext, line.getLineWidth())/2f);
+            solidLinePaint.setStrokeWidth(LeafUtil.dp2px(mContext, line.getLineWidth()) / 2f);
             solidLinePaint.setColor(line.getLineColor());
             solidLinePaint.setStyle(Paint.Style.STROKE);
-            dottedLinePaint.setStrokeWidth(LeafUtil.dp2px(mContext, line.getLineWidth())/2f);
+            dottedLinePaint.setStrokeWidth(LeafUtil.dp2px(mContext, line.getLineWidth()) / 2f);
             dottedLinePaint.setColor(line.getLineColor());
             dottedLinePaint.setStyle(Paint.Style.STROKE);
 
@@ -65,22 +63,15 @@ public class CustomLeafLineRenderer extends LeafLineRenderer {
                 float endDiffY = endPoint.getDiffY();
                 int firColor = line.getFillColor() == 0 ? Color.TRANSPARENT : line.getFillColor();
                 int secColor = line.getSecFillColor() == 0 ? Color.TRANSPARENT : line.getSecFillColor();
-//                if (BuildConfig.DEBUG) {
-//                    Log.i(CustomLeafLineRenderer.class.getSimpleName(), String.format("firstX=%d, firstY=%d, firstDiffY=%d, endX=%d, endY=%d, endDiffY=%d", (int) firstX, (int) firstY, (int) firstDiffY, (int) endX, (int) endY, (int) endDiffY));
-//                }
                 float height = Math.min(mHeight, Math.max(firstDiffY, endDiffY));
-                float x0 = 0; //Math.min(firstX, endX);
-                float y0 = 0; //Math.min(firstY, endY);
-                float x1 = 0; //Math.max(firstX, endX);
-                float y1 = mHeight; //Math.max(firstDiffY, endDiffY); //Math.max(firstY, endY);
-//                if (fillShader == null) {
-                fillShader = new LinearGradient(x0, y0, x1, y1,  Color.TRANSPARENT,firColor, Shader.TileMode.CLAMP);
+                float x0 = 0;
+                float y0 = 0;
+                float x1 = 0;
+                float y1 = mHeight;
+                fillShader = new LinearGradient(x0, y0, x1, y1, Color.TRANSPARENT, firColor, Shader.TileMode.CLAMP);
                 fillPaint.setShader(fillShader);
-//                }
-//                if (secFillShader == null) {
-                secFillShader = new LinearGradient(x0, y0, x1, y1,Color.TRANSPARENT, secColor,  Shader.TileMode.CLAMP);
+                secFillShader = new LinearGradient(x0, y0, x1, y1, Color.TRANSPARENT, secColor, Shader.TileMode.CLAMP);
                 secFillPaint.setShader(secFillShader);
-//                }
 
                 path.reset();
                 path.moveTo(firstX, firstY); // 左上角
@@ -118,37 +109,6 @@ public class CustomLeafLineRenderer extends LeafLineRenderer {
                 }
             }
             canvas.restore();
-
-//            List<PointValue> values = line.getValues();
-//            PointValue firstPoint = values.get(0);
-//            float firstX = firstPoint.getOriginX();
-//            float firstY = firstPoint.getOriginY();
-//            float firstDiffY = firstPoint.getDiffY();
-//
-//            Path path = line.getPath();
-//            PointValue lastPoint = values.get(values.size() - 1);
-//            float lastX = lastPoint.getOriginX();
-//
-//            path.lineTo(lastX, axisX.getStartY());
-//            path.lineTo(firstX, axisX.getStartY());
-//            path.close();
-//
-//            if (fillShader == null) {
-//                fillShader = new LinearGradient(0, 0, 0, mHeight, line.getFillColor(), Color.TRANSPARENT, Shader.TileMode.CLAMP);
-//                fillPaint.setShader(fillShader);
-//            }
-//
-//            if (line.getFillColor() == 0)
-//                fillPaint.setAlpha(100);
-//            else
-//                fillPaint.setColor(line.getFillColor());
-//
-//            canvas.save();
-//            canvas.clipRect(firstX, 0, phase * (lastX - firstX) + firstX, mHeight);
-//            canvas.drawPath(path, fillPaint);
-//            canvas.drawLine(firstX, firstY, firstX, firstY + firstDiffY, linePaint);
-//            canvas.restore();
-//            path.reset();
         }
     }
 }
