@@ -35,7 +35,7 @@ public class LeafLineRenderer extends AbsRenderer {
     /**
      * 填充画笔
      **/
-    private Paint fillPaint;
+    protected Paint fillPaint;
 
     private PathMeasure measure;
 
@@ -47,11 +47,9 @@ public class LeafLineRenderer extends AbsRenderer {
     /**
      * 是否开始绘制，防止动画绘制之前绘制一次
      */
-    private boolean isShow;
-
-    private float phase;
-
-    private LinearGradient fillShader;
+    protected boolean isShow;
+    protected float phase;
+    protected LinearGradient fillShader;
 
     public LeafLineRenderer(Context context, View view) {
         super(context, view);
@@ -301,7 +299,7 @@ public class LeafLineRenderer extends AbsRenderer {
         chartView.invalidate();
     }
 
-    private PathEffect createPathEffect(float pathLength, float phase, float offset) {
+    protected PathEffect createPathEffect(float pathLength, float phase, float offset) {
         return new DashPathEffect(new float[]{phase * pathLength, pathLength}, 0);
     }
 

@@ -88,7 +88,7 @@ public class OutsideLineChartActivity extends AppCompatActivity {
                 .setFill(true)
                 .setFillColor(Color.parseColor("#33B5E5"))
                 .setHasLabels(true)
-                .setLabelColor(Color.parseColor("#33B5E5"));
+                .setLabelColor(Color.GREEN);
         return line;
     }
 

@@ -3,8 +3,11 @@ package com.beiing.leafchart;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import com.beiing.leafchart.bean.Line;
+import com.beiing.leafchart.renderer.AbsRenderer;
+import com.beiing.leafchart.renderer.CustomLeafLineRenderer;
 import com.beiing.leafchart.renderer.LeafLineRenderer;
 
 import java.util.List;
@@ -34,7 +37,7 @@ public class LeafLineChart extends AbsLeafChart {
 
     @Override
     protected void initRenderer() {
-        leafChartRenderer = new LeafLineRenderer(mContext, this);
+        leafChartRenderer = new CustomLeafLineRenderer(mContext, this);
     }
 
     @Override
@@ -67,6 +70,9 @@ public class LeafLineChart extends AbsLeafChart {
             Line line;
             for (int i = 0, size = lines.size(); i < size; i++) {
                 line = lines.get(i);
+                if (BuildConfig.DEBUG) {
+                    Log.i(LeafLineChart.class.getSimpleName(), "index=" + i + " , line=" + line);
+                }
                 if(line != null){
                     if(line.isCubic()) {
                         leafChartRenderer.drawCubicPath(canvas, line);
